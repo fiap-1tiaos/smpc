@@ -71,7 +71,7 @@ def validar_tipo_colheita(tipo):
     
     return True, "Tipo de colheita válido"
 
-def validar_nome_proprietario(nome):
+def validar_nome_propriedade(nome):
     """
     Verifica se nome não está vazio e se tem um tamanho mínimo e máximo de caracteres
     Args:
