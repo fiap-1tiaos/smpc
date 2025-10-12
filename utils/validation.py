@@ -17,7 +17,7 @@ def validar_area_propriedade(area):
         area_float = float(area)
 
         if area_float <= 0:
-            return Flase, "A área deve ser maior que zero"
+            return False, "A área deve ser maior que zero"
 
         if area_float > 100000:  # Limite razoável para propriedades
             return False, "Área muito grande. Verifique se está em hectares (máximo 100.000 ha)"
@@ -132,26 +132,10 @@ def validar_tipo_solo(tipo_solo):
     Returns:
         tuple: (bool, str) - (é_válido, mensagem_explicativa)
     """
-    if not isinstance(tipo_solo, str):
-        return False, "Tipo de solo deve ser um texto"
-    
-    tipo_solo_limpo = tipo_solo.strip()
-    
-    if len(tipo_solo_limpo) == 0:
-        return False, "Tipo de solo não pode estar vazio"
-    
-    if len(tipo_solo_limpo) < 3:
-        return False, "Tipo de solo deve ter pelo menos 3 caracteres"
-    
-    if len(tipo_solo_limpo) > 50:
-        return False, "Tipo de solo muito longo (máximo 50 caracteres)"
-    
-    # Lista de tipos de solo comuns (opcional, para sugestões)
-    tipos_comuns = [
-        'latossolo vermelho', 'argissolo', 'neossolo', 'nitossolo',
-        'cambissolo', 'planossolo', 'gleissolo', 'vertissolo'
-    ]
-    
+
+    if not isinstance(int(tipo_solo), int):
+        return False, "Tipo de solo deve ser um número inteiro"
+
     return True, "Tipo de solo válido"
 
 def validar_data(data):
