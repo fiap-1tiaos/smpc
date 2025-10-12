@@ -15,7 +15,8 @@ from utils.menu_utils import (
     exibir_mensagem_sucesso,
     exibir_mensagem_erro,
     exibir_mensagem_info,
-    confirmar_acao
+    confirmar_acao,
+    tipos_comuns_de_solos
 )
 
 def cadastrar_propriedade():
@@ -56,14 +57,21 @@ def cadastrar_propriedade():
             return None
         
         # Solicitar tipo de solo
-        exibir_mensagem_info("Tipos de solo comuns: Latossolo Vermelho, Argissolo, Neossolo, Nitossolo")
+        tipos_comuns_de_solos()
+        
         tipo_solo = solicitar_entrada(
             "Tipo de solo", 
             validar_tipo_solo
         )
         if tipo_solo is None:  # Usuário cancelou
             return None
-        
+        solos = {
+            1: 'Latossolo vermelho',
+            2: 'Nitossolo',
+            3: 'Argissolo',
+            4: 'Neossolo Quartzarênico'
+        }
+        tipo_solo = solos[int(tipo_solo)]
         # Criar objeto Propriedade
         propriedade = Propriedade(nome, area_total, localizacao, tipo_solo)
         

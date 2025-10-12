@@ -387,6 +387,7 @@ def obter_detalhes_solo(tipo_solo):
     Returns:
         dict: Informações detalhadas do solo
     """
+
     detalhes_solos = {
         'latossolo vermelho': {
             'caracteristicas': 'Solos profundos, bem drenados, alta fertilidade natural',
@@ -420,3 +421,5 @@ def obter_detalhes_solo(tipo_solo):
         'limitacoes': 'Varia conforme região',
         'regioes': 'Distribuição variável'
     })
+
+    
