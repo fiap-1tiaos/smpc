@@ -8,6 +8,19 @@ from utils.menu_utils import (
     confirmar_acao,
     limpar_tela
 )
+1
+from services.sistema_integrado import (
+    inicializar_sistema,
+    cadastrar_propriedade_integrado,
+    registrar_colheita_integrado,
+    gerar_relatorio_integrado,
+    fazer_backup_integrado,
+    importar_backup_integrado,
+    carregar_dados_banco,
+    menu_configuracao_banco,
+    exibir_status_sistema
+)
+from services.colheita_service import exibir_resumo_colheitas
 
 # Lista global para armazenar propriedades (temporariamente)
 propriedades_cadastradas = []
