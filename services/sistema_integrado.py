@@ -113,7 +113,7 @@ def registrar_colheita_integrado(lista_propriedades):
             if propriedade.colheitas:
                 ultima_colheita = propriedade.colheitas[-1]
                 # Salvar no banco Oracle
-                colheita_id = salvar_colheita_oracle(ultima_colheita, propriedade.id)
+                colheita_id = salvar_colheita_oracle(ultima_colheita, propriedade.id, propriedade.tipo_solo)
                 if colheita_id:
                     ultima_colheita.id = colheita_id
                     exibir_mensagem_info("Colheita salva no banco Oracle")
@@ -169,7 +169,7 @@ def sincronizar_com_banco(lista_propriedades):
                 # Salvar colheitas da propriedade
                 for colheita in propriedade.colheitas:
                     if not hasattr(colheita, 'id'):
-                        colheita_id = salvar_colheita_oracle(colheita, propriedade.id)
+                        colheita_id = salvar_colheita_oracle(colheita, propriedade.id, propriedade.tipo_solo)
                         if colheita_id:
                             colheita.id = colheita_id
         

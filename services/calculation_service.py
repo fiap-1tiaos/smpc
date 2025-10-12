@@ -3,6 +3,7 @@ Módulo de serviços para cálculos de perdas e análises
 Contém funções para calcular produtividade, perdas e gerar relatórios
 """
 
+from colorama import Fore, Style
 from utils.menu_utils import (
     exibir_mensagem_info,
     exibir_mensagem_erro,
@@ -120,19 +121,19 @@ def classificar_perda(percentual):
 
 def obter_cor_classificacao(classificacao):
     """
-    Retorna um símbolo para representar a classificação da perda
+    Retorna um símbolo colorido para representar a classificação da perda
     
     Args:
         classificacao (str): Classificação da perda
         
     Returns:
-        str: Símbolo representativo
+        str: Símbolo representativo com cor
     """
     simbolos = {
-        "Baixa": "✓",
-        "Média": "⚠",
-        "Alta": "⚠⚠",
-        "Crítica": "✗✗"
+        "Baixa": f"{Fore.GREEN}✓{Style.RESET_ALL}",
+        "Média": f"{Fore.YELLOW}⚠{Style.RESET_ALL}",
+        "Alta": f"{Fore.YELLOW}⚠⚠{Style.RESET_ALL}",
+        "Crítica": f"{Fore.RED}✗✗{Style.RESET_ALL}"
     }
     return simbolos.get(classificacao, "?")
 
@@ -180,7 +181,9 @@ def gerar_relatorio_perdas(lista_propriedades):
         exibir_mensagem_info("Registre algumas colheitas para gerar o relatório de perdas.")
         return
     
-    exibir_cabecalho("Relatório de Análise de Perdas")
+    print(f"\n{Fore.MAGENTA}{'='*70}")
+    print(f"{Fore.YELLOW}{Style.BRIGHT}    📊 RELATÓRIO DE ANÁLISE DE PERDAS")
+    print(f"{Fore.MAGENTA}{'='*70}")
     
     todas_analises = []
     perdas_criticas = []
@@ -189,32 +192,37 @@ def gerar_relatorio_perdas(lista_propriedades):
         if not propriedade.colheitas:
             continue
             
-        print(f"\n{'='*60}")
-        print(f"PROPRIEDADE: {propriedade.nome.upper()}")
-        print(f"Localização: {propriedade.localizacao}")
-        print(f"Tipo de Solo: {propriedade.tipo_solo}")
-        print(f"Área Total: {propriedade.area_total} ha")
-        print(f"{'='*60}")
+        print(f"\n{Fore.CYAN}{'='*70}")
+        print(f"{Fore.WHITE}{Style.BRIGHT}🏡 PROPRIEDADE: {propriedade.nome.upper()}")
+        print(f"{Fore.CYAN}📍 Localização: {Fore.WHITE}{propriedade.localizacao}")
+        print(f"{Fore.CYAN}🌱 Tipo de Solo: {Fore.WHITE}{propriedade.tipo_solo}")
+        print(f"{Fore.CYAN}📏 Área Total: {Fore.WHITE}{propriedade.area_total} ha")
+        print(f"{Fore.CYAN}{'='*70}")
         
         for i, colheita in enumerate(propriedade.colheitas, 1):
             analise = analisar_colheita(colheita, propriedade.tipo_solo)
             todas_analises.append(analise)
             
-            print(f"\n--- COLHEITA {i} ---")
-            print(f"Data: {colheita.data}")
-            print(f"Área Colhida: {colheita.area_colhida} ha")
-            print(f"Quantidade: {colheita.quantidade_colhida} t")
-            print(f"Tipo: {colheita.tipo_colheita.title()}")
-            print(f"Produtividade Real: {analise['produtividade_real']} t/ha")
-            print(f"Produtividade Esperada: {analise['produtividade_esperada']} t/ha")
-            print(f"Perda: {analise['percentual_perda']}% - {analise['classificacao']} {analise['simbolo']}")
+            print(f"\n{Fore.BLUE}--- 🚜 COLHEITA {i} ---")
+            print(f"{Fore.CYAN}📅 Data: {Fore.WHITE}{colheita.data}")
+            print(f"{Fore.CYAN}📏 Área Colhida: {Fore.WHITE}{colheita.area_colhida} ha")
+            print(f"{Fore.CYAN}⚖️  Quantidade: {Fore.WHITE}{colheita.quantidade_colhida} t")
+            print(f"{Fore.CYAN}🔧 Tipo: {Fore.WHITE}{colheita.tipo_colheita.title()}")
+            print(f"{Fore.CYAN}📈 Produtividade Real: {Fore.WHITE}{analise['produtividade_real']} t/ha")
+            print(f"{Fore.CYAN}🎯 Produtividade Esperada: {Fore.WHITE}{analise['produtividade_esperada']} t/ha")
+            
+            # Colorir a perda baseada na classificação
+            cor_perda = Fore.GREEN if analise['classificacao'] == 'Baixa' else \
+                       Fore.YELLOW if analise['classificacao'] in ['Média', 'Alta'] else Fore.RED
+            
+            print(f"{Fore.CYAN}📉 Perda: {cor_perda}{Style.BRIGHT}{analise['percentual_perda']}% - {analise['classificacao']} {analise['simbolo']}")
             
             # Marcar perdas críticas
             if analise['classificacao'] == 'Crítica':
                 perdas_criticas.append(analise)
-                print(">>> ATENÇÃO: PERDA CRÍTICA! <<<")
+                print(f"{Fore.RED}{Style.BRIGHT}🚨 >>> ATENÇÃO: PERDA CRÍTICA! <<<")
             
-            print("-" * 30)
+            print(f"{Fore.BLUE}{'-' * 40}")
     
     # Resumo geral
     if todas_analises:

@@ -246,13 +246,14 @@ def salvar_propriedade_oracle(propriedade):
         fechar_conexao(conexao)
         return None
 
-def salvar_colheita_oracle(colheita, propriedade_id):
+def salvar_colheita_oracle(colheita, propriedade_id, tipo_solo):
     """
     Salva uma colheita no banco Oracle
     
     Args:
         colheita (Colheita): Objeto colheita a ser salvo
         propriedade_id (int): ID da propriedade associada
+        tipo_solo (str): Tipo de solo da propriedade para calcular perda
         
     Returns:
         int: ID da colheita salva ou None se houver erro
@@ -264,8 +265,12 @@ def salvar_colheita_oracle(colheita, propriedade_id):
     try:
         cursor = conexao.cursor()
         
-        # Calcular percentual de perda (será implementado depois)
-        percentual_perda = 0.0  # Por enquanto, será calculado posteriormente
+        # Importar função de cálculo de perda
+        from services.calculation_service import calcular_produtividade_esperada, calcular_percentual_perda
+        
+        # Calcular percentual de perda baseado no tipo de solo
+        produtividade_esperada = calcular_produtividade_esperada(colheita.area_colhida, tipo_solo)
+        percentual_perda = calcular_percentual_perda(colheita.produtividade, produtividade_esperada)
         
         # Inserir nova colheita usando RETURNING clause
         colheita_id_var = cursor.var(cx_Oracle.NUMBER)

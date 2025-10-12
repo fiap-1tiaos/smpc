@@ -1,3 +1,4 @@
+from colorama import Fore, Style
 from utils.menu_utils import (
     exibir_menu_principal, 
     obter_opcao_usuario, 
@@ -6,7 +7,9 @@ from utils.menu_utils import (
     exibir_cabecalho,
     pausar_execucao,
     confirmar_acao,
-    limpar_tela
+    limpar_tela,
+    exibir_rodape,
+    exibir_titulo_secao
 )
 
 from services.sistema_integrado import (
@@ -96,16 +99,27 @@ def main():
     """
     Função principal do sistema - Loop principal do menu
     """
-    exibir_cabecalho("Bem-vindo ao Sistema de Monitoramento de Perdas")
+    # Limpar tela e exibir boas-vindas
+    limpar_tela()
+    
+    print(f"{Fore.GREEN}{Style.BRIGHT}")
+    print("🌾" * 35)
+    print(f"{Fore.YELLOW}{Style.BRIGHT}    BEM-VINDO AO SISTEMA DE MONITORAMENTO")
+    print(f"    DE PERDAS NA COLHEITA DE CANA-DE-AÇÚCAR")
+    print(f"{Fore.GREEN}🌾" * 35)
+    print(f"{Style.RESET_ALL}")
+    
     exibir_mensagem_info("Sistema para análise de perdas na colheita de cana-de-açúcar")
     
     # Inicializar sistema (verificar banco, criar tabelas, etc.)
+    print(f"{Fore.CYAN}🔧 Inicializando sistema...")
     inicializar_sistema()
     
     # Carregar dados existentes do banco se disponível
     propriedades_banco = carregar_dados_banco()
     if propriedades_banco:
         propriedades_cadastradas.extend(propriedades_banco)
+        exibir_mensagem_sucesso(f"Carregadas {len(propriedades_banco)} propriedades do banco de dados")
     
     # Loop principal do sistema
     continuar = True
@@ -116,12 +130,15 @@ def main():
             continuar = processar_opcao_menu(opcao)
             
         except KeyboardInterrupt:
-            print("\n\nSistema interrompido pelo usuário.")
+            print(f"\n\n{Fore.YELLOW}⚠️  Sistema interrompido pelo usuário.")
             break
         except Exception as e:
-            print(f"\nErro inesperado: {e}")
-            print("Reiniciando o menu...")
+            print(f"\n{Fore.RED}❌ Erro inesperado: {e}")
+            print(f"{Fore.YELLOW}🔄 Reiniciando o menu...")
             pausar_execucao()
+    
+    # Exibir rodapé de despedida
+    exibir_rodape()
 
 if __name__ == "__main__":
     main()
