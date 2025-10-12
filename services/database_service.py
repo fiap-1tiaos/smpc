@@ -4,8 +4,12 @@ Contém funções para CRUD e gerenciamento de dados
 """
 
 try:
+    from dotenv import load_dotenv
     import cx_Oracle
     import os
+
+    # Carregar as variáveis de ambiente
+    load_dotenv()
 
     instant_client_path = os.getenv('ORACLE_CLIENT_PATH')
     if os.path.exists(instant_client_path):
@@ -51,7 +55,7 @@ def conectar_oracle():
     
     try:
         config_conexao = obter_string_conexao()
-        
+
         # Tentar conectar
         conexao = cx_Oracle.connect(
             user=config_conexao['user'],

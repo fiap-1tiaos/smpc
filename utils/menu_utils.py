@@ -181,11 +181,12 @@ def solicitar_entrada(prompt, tipo_validacao=None):
         except Exception as e:
             exibir_mensagem_erro("Erro inesperado. Tente novamente.")
 
-def tipos_comuns_de_solos():
+def tipos_comuns_de_solos(solos):
     print(f'''
 ===== Tipos de Solos Comuns =====
-1 - Latossolo vermelho
-2 - Nitossolo
-3 - Argissolo
-4 - Neossolo Quartzarênico
 ''')
+    for key, solo in solos.items():
+        print(f"""
+{key} - {solo}""", end="")
+
+    print()

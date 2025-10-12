@@ -28,7 +28,7 @@ def validar_area_propriedade(area):
 
 
 def validar_quantidade_colheita(quantidade):
-    """"
+    """
     Verifica se quantidade de colheita é positiva e razoável (toneladas)
     
     Args:
@@ -181,6 +181,30 @@ def validar_data(data):
     
     except ValueError:
         return False, "Data deve conter apenas números no formato DD/MM/AAAA"
+
+def validar_produtividade_suspeita(area_colhida, quantidade_colhida):
+    """
+    Verifica se a produtividade calculada está dentro de valores razoáveis para cana-de-açúcar
+    
+    Args:
+        area_colhida (float): Área colhida em hectares
+        quantidade_colhida (float): Quantidade colhida em toneladas
+        
+    Returns:
+        tuple: (bool, str, float) - (é_suspeito, mensagem_alerta, produtividade_calculada)
+    """
+    if area_colhida <= 0:
+        return False, "Área deve ser maior que zero", 0.0
+    
+    produtividade = quantidade_colhida / area_colhida
+    
+    # Valores típicos para cana-de-açúcar no Brasil: 60-120 t/ha
+    if produtividade < 30:
+        return True, f"⚠️ ATENÇÃO: Produtividade muito baixa ({produtividade:.1f} t/ha). Valores normais: 60-100 t/ha. Verifique os dados!", produtividade
+    elif produtividade > 150:
+        return True, f"⚠️ ATENÇÃO: Produtividade muito alta ({produtividade:.1f} t/ha). Valores normais: 60-100 t/ha. Verifique os dados!", produtividade
+    
+    return False, f"Produtividade normal: {produtividade:.1f} t/ha", produtividade
 
 def validar_opcao_menu(opcao, opcoes_validas):
     """

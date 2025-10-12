@@ -16,7 +16,7 @@ class Colheita:
     """
     
     def __init__(self, data: str, area_colhida: float, quantidade_colhida: float, tipo_colheita: str):
-        self.datas = data
+        self.data = data
         self.area_colhida = area_colhida
         self.quantidade_colhida = quantidade_colhida
         self.tipo_colheita = tipo_colheita
@@ -29,3 +29,56 @@ Area Colhida: {self.area_colhida}
 Quantidade Colhida: {self.quantidade_colhida}
 Tipo Colheita: {self.tipo_colheita}
         """
+
+    @property
+    def produtividade(self):
+        """
+        Propriedade que retorna a produtividade da colheita (quantidade ÷ área)
+        
+        Returns:
+            float: Produtividade em toneladas por hectare
+        """
+        if self.area_colhida > 0:
+            return round(self.quantidade_colhida / self.area_colhida, 2)
+        return 0.0
+
+    def calcular_produtividade(self):
+        """
+        Calcula a produtividade da colheita (quantidade ÷ área)
+        
+        Returns:
+            float: Produtividade em toneladas por hectare
+        """
+        if self.area_colhida > 0:
+            return round(self.quantidade_colhida / self.area_colhida, 2)
+        return 0.0
+
+    def obter_eficiencia(self):
+        """
+        Retorna uma classificação da eficiência baseada no tipo de colheita
+        
+        Returns:
+            str: Classificação da eficiência
+        """
+        if self.tipo_colheita.lower() == 'manual':
+            return "Alta eficiência (colheita manual)"
+        else:
+            return "Eficiência padrão (colheita mecânica)"
+    
+    def eh_colheita_manual(self):
+        """
+        Verifica se a colheita foi realizada manualmente
+        
+        Returns:
+            bool: True se for colheita manual, False caso contrário
+        """
+        return self.tipo_colheita.lower() == 'manual'
+    
+    def eh_colheita_mecanica(self):
+        """
+        Verifica se a colheita foi realizada mecanicamente
+        
+        Returns:
+            bool: True se for colheita mecânica, False caso contrário
+        """
+        return self.tipo_colheita.lower() == 'mecanica'

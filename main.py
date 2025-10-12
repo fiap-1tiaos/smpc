@@ -8,7 +8,7 @@ from utils.menu_utils import (
     confirmar_acao,
     limpar_tela
 )
-1
+
 from services.sistema_integrado import (
     inicializar_sistema,
     cadastrar_propriedade_integrado,
@@ -42,7 +42,6 @@ def processar_opcao_menu(opcao):
             propriedades_cadastradas.append(nova_propriedade)
             exibir_mensagem_info(f"Total de propriedades: {len(propriedades_cadastradas)}")
         pausar_execucao()
-        limpar_tela()
 
     elif opcao == 2:
         exibir_cabecalho("Registrar Colheita")

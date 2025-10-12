@@ -8,7 +8,8 @@ from utils.validation import (
     validar_data,
     validar_area_propriedade,
     validar_quantidade_colheita,
-    validar_tipo_colheita
+    validar_tipo_colheita,
+    validar_produtividade_suspeita
 )
 from utils.menu_utils import (
     solicitar_entrada,
@@ -112,6 +113,25 @@ def registrar_colheita(lista_propriedades):
         if tipo_colheita is None:  # Usuário cancelou
             return False
         
+        # Validar se a produtividade está dentro de valores razoáveis
+        eh_suspeito, mensagem_alerta, produtividade_calc = validar_produtividade_suspeita(area_colhida, quantidade_colhida)
+        
+        if eh_suspeito:
+            exibir_mensagem_erro(mensagem_alerta)
+            print("\n📊 VALORES TÍPICOS PARA CANA-DE-AÇÚCAR:")
+            print("• Produtividade baixa: 40-60 t/ha")
+            print("• Produtividade média: 60-80 t/ha") 
+            print("• Produtividade alta: 80-100 t/ha")
+            print("• Produtividade excepcional: 100-120 t/ha")
+            print("\n💡 DICA: Verifique se:")
+            print("• A área está em HECTARES (não em metros²)")
+            print("• A quantidade está em TONELADAS (não em kg)")
+            print("• Os valores foram digitados corretamente")
+            
+            if not confirmar_acao("Deseja continuar mesmo com estes valores suspeitos?"):
+                exibir_mensagem_info("Registro cancelado. Verifique os dados e tente novamente.")
+                return False
+        
         # Criar objeto Colheita
         colheita = Colheita(data, area_colhida, quantidade_colhida, tipo_colheita.lower())
         
@@ -121,6 +141,7 @@ def registrar_colheita(lista_propriedades):
         print("="*50)
         print(f"Propriedade: {propriedade_selecionada.nome}")
         print(colheita)
+        print(f"Produtividade Calculada: {colheita.produtividade} t/ha")
         
         # Mostrar análise básica
         if colheita.produtividade > 0:

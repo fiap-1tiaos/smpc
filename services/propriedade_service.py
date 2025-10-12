@@ -3,7 +3,7 @@ Módulo de serviços para gerenciamento de propriedades rurais
 Contém funções para cadastro e manipulação de propriedades
 """
 
-from models.propriedade import Propriedade
+from models.propriedade import Propriedade, Solos
 from utils.validation import (
     validar_nome_propriedade,
     validar_area_propriedade,
@@ -57,7 +57,7 @@ def cadastrar_propriedade():
             return None
         
         # Solicitar tipo de solo
-        tipos_comuns_de_solos()
+        tipos_comuns_de_solos(Solos.obter_tipos_solo())
         
         tipo_solo = solicitar_entrada(
             "Tipo de solo", 
