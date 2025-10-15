@@ -100,7 +100,7 @@ def salvar_backup_json(lista_propriedades, nome_arquivo=None):
         
         # Caminho completo do arquivo
         base_dir = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
-        caminho_arquivo = os.path.join(base_dir, "assets", "data", nome_arquivo)
+        caminho_arquivo = os.path.join(base_dir, "scripts", "data", nome_arquivo)
         
         # Criar pasta data se não existir
         os.makedirs(os.path.dirname(caminho_arquivo), exist_ok=True)
@@ -146,7 +146,7 @@ def carregar_backup_json(nome_arquivo):
     """
     try:
         # Caminho completo do arquivo
-        caminho_arquivo = os.path.join("assets", "data", nome_arquivo)
+        caminho_arquivo = os.path.join("scripts", "data", nome_arquivo)
         
         # Verificar se arquivo existe
         if not os.path.exists(caminho_arquivo):
@@ -229,7 +229,7 @@ def validar_estrutura_json(backup_data):
 
 def listar_arquivos_backup():
     """
-    Lista todos os arquivos de backup disponíveis na pasta assets/data
+    Lista todos os arquivos de backup disponíveis na pasta scripts/data
     
     Returns:
         list: Lista de dicionários contendo informações dos arquivos de backup
@@ -237,7 +237,7 @@ def listar_arquivos_backup():
     try:
         # Caminho absoluto até a pasta smcp/
         base_dir = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
-        pasta_data = os.path.join(base_dir, "assets", "data")
+        pasta_data = os.path.join(base_dir, "scripts", "data")
         
         # Se a pasta não existir, retorna lista vazia
         if not os.path.exists(pasta_data):
@@ -302,8 +302,8 @@ def importar_backup_interativo():
     arquivos = listar_arquivos_backup()
     
     if not arquivos:
-        exibir_mensagem_erro("Nenhum arquivo de backup encontrado na pasta 'assets/data'.")
-        exibir_mensagem_info("Coloque arquivos .json na pasta 'assets/data' para importar.")
+        exibir_mensagem_erro("Nenhum arquivo de backup encontrado na pasta 'scripts/data'.")
+        exibir_mensagem_info("Coloque arquivos .json na pasta 'scripts/data' para importar.")
         return None
     
     print(f"\nARQUIVOS DE BACKUP DISPONÍVEIS:")

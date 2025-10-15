@@ -1,0 +1,82 @@
+{
+  "versao": "1.0",
+  "data_backup": "2025-10-14T21:16:11.124567",
+  "total_propriedades": 5,
+  "total_colheitas": 5,
+  "propriedades": [
+    {
+      "nome": "Fazenda Legal",
+      "area_total": 200.0,
+      "localizacao": "Sao Paulo, SP",
+      "tipo_solo": "Argissolo",
+      "colheitas": []
+    },
+    {
+      "nome": "Fazenda do seu Zé",
+      "area_total": 500.0,
+      "localizacao": "Sao Paulo, SP",
+      "tipo_solo": "Nitossolo",
+      "colheitas": [
+        {
+          "data": "08/10/2025",
+          "area_colhida": 400.0,
+          "quantidade_colhida": 15000.0,
+          "tipo_colheita": "mecanica",
+          "produtividade": 37.5
+        }
+      ]
+    },
+    {
+      "nome": "Fazendinha Maneira",
+      "area_total": 200.0,
+      "localizacao": "Minas, MG",
+      "tipo_solo": "Argissolo",
+      "colheitas": [
+        {
+          "data": "09/10/2025",
+          "area_colhida": 200.0,
+          "quantidade_colhida": 15000.0,
+          "tipo_colheita": "manual",
+          "produtividade": 75.0
+        }
+      ]
+    },
+    {
+      "nome": "Fazendinha do Julio",
+      "area_total": 200.0,
+      "localizacao": "Sao Paulo, SP",
+      "tipo_solo": "Latossolo vermelho",
+      "colheitas": [
+        {
+          "data": "12/10/2025",
+          "area_colhida": 200.0,
+          "quantidade_colhida": 15000.0,
+          "tipo_colheita": "mecanica",
+          "produtividade": 75.0
+        },
+        {
+          "data": "12/10/2025",
+          "area_colhida": 200.0,
+          "quantidade_colhida": 20000.0,
+          "tipo_colheita": "mecanica",
+          "produtividade": 100.0
+        }
+      ]
+    },
+    {
+      "nome": "Teste final",
+      "area_total": 200.0,
+      "localizacao": "Sao Paulo, SP",
+      "tipo_solo": "Neossolo Quartzarênico",
+      "colheitas": [
+        {
+          "data": "14/10/2025",
+          "area_colhida": 200.0,
+          "quantidade_colhida": 14000.0,
+          "tipo_colheita": "manual",
+          "produtividade": 70.0
+        }
+      ]
+    }
+  ]
+}
