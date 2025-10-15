@@ -3,14 +3,14 @@ Módulo de serviços para gerenciamento de propriedades rurais
 Contém funções para cadastro e manipulação de propriedades
 """
 
-from models.propriedade import Propriedade, Solos
-from utils.validation import (
+from src.models.propriedade import Propriedade, Solos
+from src.utils.validation import (
     validar_nome_propriedade,
     validar_area_propriedade,
     validar_localizacao,
     validar_tipo_solo
 )
-from utils.menu_utils import (
+from src.utils.menu_utils import (
     solicitar_entrada,
     exibir_mensagem_sucesso,
     exibir_mensagem_erro,

@@ -2,9 +2,7 @@
 Módulo de integração entre banco de dados e funcionalidades do sistema
 Combina operações de banco com lógica de negócio
 """
-import services.database_service
-from services.database_service import (
-    conectar_oracle,
+from src.services.database_service import (
     testar_conexao,
     criar_tabelas,
     salvar_propriedade_oracle,
@@ -13,11 +11,10 @@ from services.database_service import (
     buscar_historico_completo,
     obter_estatisticas_banco
 )
-from services.propriedade_service import cadastrar_propriedade
-from services.colheita_service import registrar_colheita
-from services.calculation_service import gerar_relatorio_perdas, analisar_colheita
-from services.file_service import salvar_backup_json, carregar_backup_json
-from utils.menu_utils import (
+from src.services.propriedade_service import cadastrar_propriedade
+from src.services.colheita_service import registrar_colheita
+from src.services.calculation_service import gerar_relatorio_perdas
+from src.utils.menu_utils import (
     exibir_mensagem_sucesso,
     exibir_mensagem_erro,
     exibir_mensagem_info,
@@ -218,7 +215,7 @@ def fazer_backup_integrado(lista_propriedades):
             exibir_mensagem_info("Dados atualizados do banco Oracle para backup")
     
     # Fazer backup usando função existente
-    from services.file_service import fazer_backup_interativo
+    from src.services.file_service import fazer_backup_interativo
     return fazer_backup_interativo(lista_propriedades)
 
 def importar_backup_integrado():
@@ -228,7 +225,7 @@ def importar_backup_integrado():
     Returns:
         list: Lista de propriedades importadas ou None se cancelado
     """
-    from services.file_service import importar_backup_interativo
+    from src.services.file_service import importar_backup_interativo
     
     propriedades_importadas = importar_backup_interativo()
     
@@ -299,11 +296,11 @@ def menu_configuracao_banco():
             elif opcao == '3':
                 exibir_status_sistema()
             elif opcao == '4':
-                from services.calculation_service import exibir_referencias_cientificas
+                from src.services.calculation_service import exibir_referencias_cientificas
                 exibir_referencias_cientificas()
             elif opcao == '5':
                 if confirmar_acao("ATENÇÃO: Isso removerá TODOS os dados do banco Oracle. Confirma?"):
-                    from services.database_service import limpar_dados_banco
+                    from src.services.database_service import limpar_dados_banco
                     limpar_dados_banco()
             elif opcao == '6':
                 break

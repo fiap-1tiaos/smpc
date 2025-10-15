@@ -1,5 +1,5 @@
 from colorama import Fore, Style
-from utils.menu_utils import (
+from src.utils.menu_utils import (
     exibir_menu_principal, 
     obter_opcao_usuario, 
     exibir_mensagem_sucesso,
@@ -8,11 +8,10 @@ from utils.menu_utils import (
     pausar_execucao,
     confirmar_acao,
     limpar_tela,
-    exibir_rodape,
-    exibir_titulo_secao
+    exibir_rodape
 )
 
-from services.sistema_integrado import (
+from src.services import (
     inicializar_sistema,
     cadastrar_propriedade_integrado,
     registrar_colheita_integrado,
@@ -21,9 +20,9 @@ from services.sistema_integrado import (
     importar_backup_integrado,
     carregar_dados_banco,
     menu_configuracao_banco,
-    exibir_status_sistema
+    exibir_status_sistema,
+    exibir_resumo_colheitas
 )
-from services.colheita_service import exibir_resumo_colheitas
 
 # Lista global para armazenar propriedades (temporariamente)
 propriedades_cadastradas = []

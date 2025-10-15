@@ -23,21 +23,19 @@ except ImportError as e:
     ORACLE_DISPONIVEL = False
     cx_Oracle = None
 
-from datetime import datetime
 from config.database_config import (
-    obter_string_conexao, 
-    CONFIG_AVANCADA,
+    obter_string_conexao,
     SQL_CREATE_TABLES,
     SQL_INSERT,
     SQL_SELECT
 )
-from utils.menu_utils import (
+from src.utils.menu_utils import (
     exibir_mensagem_sucesso,
     exibir_mensagem_erro,
     exibir_mensagem_info
 )
-from models.propriedade import Propriedade
-from models.colheita import Colheita
+from src.models.propriedade import Propriedade
+from src.models.colheita import Colheita
 
 # Variável global para conexão (pool de conexões)
 _connection_pool = None
@@ -266,7 +264,7 @@ def salvar_colheita_oracle(colheita, propriedade_id, tipo_solo):
         cursor = conexao.cursor()
         
         # Importar função de cálculo de perda
-        from services.calculation_service import calcular_produtividade_esperada, calcular_percentual_perda
+        from src.services.calculation_service import calcular_produtividade_esperada, calcular_percentual_perda
         
         # Calcular percentual de perda baseado no tipo de solo
         produtividade_esperada = calcular_produtividade_esperada(colheita.area_colhida, tipo_solo)

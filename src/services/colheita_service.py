@@ -3,15 +3,15 @@ Módulo de serviços para gerenciamento de colheitas
 Contém funções para registro e manipulação de colheitas
 """
 
-from models.colheita import Colheita
-from utils.validation import (
+from src.models.colheita import Colheita
+from src.utils.validation import (
     validar_data,
     validar_area_propriedade,
     validar_quantidade_colheita,
     validar_tipo_colheita,
     validar_produtividade_suspeita
 )
-from utils.menu_utils import (
+from src.utils.menu_utils import (
     solicitar_entrada,
     exibir_mensagem_sucesso,
     exibir_mensagem_erro,
@@ -19,7 +19,7 @@ from utils.menu_utils import (
     confirmar_acao,
     exibir_lista_numerada
 )
-from services.propriedade_service import selecionar_propriedade
+from src.services.propriedade_service import selecionar_propriedade
 
 def listar_propriedades(lista_propriedades):
     """

@@ -6,9 +6,9 @@ Contém funções para backup e restauração de dados
 import json
 import os
 from datetime import datetime
-from models.propriedade import Propriedade
-from models.colheita import Colheita
-from utils.menu_utils import (
+from src.models.propriedade import Propriedade
+from src.models.colheita import Colheita
+from src.utils.menu_utils import (
     exibir_mensagem_sucesso,
     exibir_mensagem_erro,
     exibir_mensagem_info,
@@ -99,10 +99,11 @@ def salvar_backup_json(lista_propriedades, nome_arquivo=None):
             nome_arquivo += '.json'
         
         # Caminho completo do arquivo
-        caminho_arquivo = os.path.join('data', nome_arquivo)
+        base_dir = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+        caminho_arquivo = os.path.join(base_dir, "assets", "data", nome_arquivo)
         
         # Criar pasta data se não existir
-        os.makedirs('data', exist_ok=True)
+        os.makedirs(os.path.dirname(caminho_arquivo), exist_ok=True)
         
         # Converter propriedades para dicionários
         propriedades_dict = []
@@ -145,7 +146,7 @@ def carregar_backup_json(nome_arquivo):
     """
     try:
         # Caminho completo do arquivo
-        caminho_arquivo = os.path.join('data', nome_arquivo)
+        caminho_arquivo = os.path.join("assets", "data", nome_arquivo)
         
         # Verificar se arquivo existe
         if not os.path.exists(caminho_arquivo):
@@ -228,21 +229,23 @@ def validar_estrutura_json(backup_data):
 
 def listar_arquivos_backup():
     """
-    Lista todos os arquivos de backup disponíveis na pasta data
+    Lista todos os arquivos de backup disponíveis na pasta assets/data
     
     Returns:
-        list: Lista de nomes de arquivos de backup
+        list: Lista de dicionários contendo informações dos arquivos de backup
     """
     try:
-        pasta_data = 'data'
+        # Caminho absoluto até a pasta smcp/
+        base_dir = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+        pasta_data = os.path.join(base_dir, "assets", "data")
         
+        # Se a pasta não existir, retorna lista vazia
         if not os.path.exists(pasta_data):
             return []
         
         arquivos = []
         for arquivo in os.listdir(pasta_data):
             if arquivo.endswith('.json'):
-                # Obter informações do arquivo
                 caminho_completo = os.path.join(pasta_data, arquivo)
                 tamanho = os.path.getsize(caminho_completo)
                 modificacao = os.path.getmtime(caminho_completo)
@@ -253,6 +256,9 @@ def listar_arquivos_backup():
                     'tamanho': tamanho,
                     'data_modificacao': data_modificacao
                 })
+        
+        # Ordena por data de modificação (opcional: mais recentes primeiro)
+        arquivos.sort(key=lambda x: x['data_modificacao'], reverse=True)
         
         return arquivos
         
@@ -296,8 +302,8 @@ def importar_backup_interativo():
     arquivos = listar_arquivos_backup()
     
     if not arquivos:
-        exibir_mensagem_erro("Nenhum arquivo de backup encontrado na pasta 'data'.")
-        exibir_mensagem_info("Coloque arquivos .json na pasta 'data' para importar.")
+        exibir_mensagem_erro("Nenhum arquivo de backup encontrado na pasta 'assets/data'.")
+        exibir_mensagem_info("Coloque arquivos .json na pasta 'assets/data' para importar.")
         return None
     
     print(f"\nARQUIVOS DE BACKUP DISPONÍVEIS:")

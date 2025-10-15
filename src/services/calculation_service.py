@@ -4,10 +4,9 @@ Contém funções para calcular produtividade, perdas e gerar relatórios
 """
 
 from colorama import Fore, Style
-from utils.menu_utils import (
+from src.utils.menu_utils import (
     exibir_mensagem_info,
-    exibir_mensagem_erro,
-    exibir_cabecalho
+    exibir_mensagem_erro
 )
 
 # Dicionário com produtividades esperadas por tipo de solo (em t/ha)
